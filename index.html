@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Crossdomain POC</title>
+</head>
+<body>
+    <h1>Crossdomain POC</h1>
+    <p>This page hosts a Flash SWF file to test crossdomain.xml vulnerabilities.</p>
+    <object type="application/x-shockwave-flash" data="assets/malicious.swf" width="400" height="300">
+        <param name="movie" value="assets/malicious.swf" />
+        <param name="quality" value="high" />
+        <param name="allowScriptAccess" value="always" />
+    </object>
+</body>
+</html>
