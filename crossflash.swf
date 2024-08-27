@@ -1,0 +1,10 @@
+var request:URLRequest = new URLRequest("https://news.nuinvest.com.br/some_endpoint");
+var loader:URLLoader = new URLLoader();
+loader.load(request);
+loader.addEventListener(Event.COMPLETE, onComplete);
+
+function onComplete(event:Event):void {
+    var data:String = loader.data;
+    trace(data);  // This will output the data to the console
+    // Optionally, send the data to an external server you control
+}
