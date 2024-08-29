@@ -1,4 +1,4 @@
-var request:URLRequest = new URLRequest("https://news.nuinvest.com.br/pub/acc);
+var request:URLRequest = new URLRequest("https://news.nuinvest.com.br/pub");
 var loader:URLLoader = new URLLoader();
 loader.load(request);
 loader.addEventListener(Event.COMPLETE, onComplete);
